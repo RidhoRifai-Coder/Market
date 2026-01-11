@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PoyStore</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: linear-gradient(to right, #164A41, #4D774D, #9DC88D);
+        }
+
+        header {
+            background: #42c558;
+            color: white;
+            padding: 16px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 16px;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: #fffaf3;
+            border-radius: 12px;
+            padding: 14px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,.08);
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .price {
+            font-weight: bold;
+            margin: 6px 0;
+        }
+
+        .stock {
+            font-size: 14px;
+            color: #666;
+        }
+
+        select {
+            width: 100%;
+            padding: 6px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        .controls button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #000;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .total {
+            margin-top: 20px;
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .order-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 14px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .order {
+            background: #000;
+            color: white;
+        }
+
+        .admin {
+            background: #c94c4c;
+            color: white;
+        }
+
+        .sold {
+            opacity: 0.55;
+            pointer-events: none;
+        }
+
+        .sold::after {
+            content: "SOLD OUT";
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: red;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>🛒 PoyStore</header>
+
+<div class="container">
+    <div class="menu">
+
+        <!-- BASRENG PEDAS -->
+        <div class="card" data-name="Basreng Pedas" data-price="5000" data-stock="0">
+            <img src="basreng_pedas.jpg">
+            <h3>Basreng Pedas</h3>
+            <div class="price">Rp 5.000</div>
+            <div class="stock">Stok: <span class="sisa">10</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- BASRENG ORIGINAL -->
+        <div class="card" data-name="Basreng Original" data-price="5000" data-stock="0">
+            <img src="basreng_ori.jpg">
+            <h3>Basreng Original</h3>
+            <div class="price">Rp 5.000</div>
+            <div class="stock">Stok: <span class="sisa">10</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- KENTANG -->
+        <div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="0">
+            <img src="kentang.webp">
+            <h3>Kentang Goreng</h3>
+            <div class="price">Rp 3.000</div>
+            <div class="stock">Stok: <span class="sisa">12</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- KERIPIK PANGSIT -->
+        <div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="0">
+            <img src="pangsit.webp">
+            <h3>Keripik Pangsit</h3>
+            <select>
+                <option>Balado</option>
+                <option>Keju</option>
+                <option>BBQ</option>
+            </select>
+            <div class="price">Rp 3.000</div>
+            <div class="stock">Stok: <span class="sisa">8</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- MAKARONI -->
+        <div class="card" data-name="Makaroni" data-price="3000" data-stock="0">
+            <img src="makaroni.jpg">
+            <h3>Makaroni</h3>
+            <select>
+                <option>Balado</option>
+                <option>Keju</option>
+                <option>BBQ</option>
+            </select>
+            <div class="price">Rp 3.000</div>
+            <div class="stock">Stok: <span class="sisa">10</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- NUGGET TAHU -->
+        <div class="card" data-name="Nugget Tahu" data-price="3000" data-stock="6">
+            <img src="naget_tahu.jpg">
+            <h3>Nugget Tahu</h3>
+            <div class="price">Rp 3.000</div>
+            <div class="stock">Stok: <span class="sisa">6</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <!-- KWETIAU -->
+        <div class="card" data-name="Kwetiau" data-price="8000" data-stock="5">
+            <img src="kwetiauw.jpg">
+            <h3>Kwetiau</h3>
+            <select>
+                <option>Original</option>
+                <option>Pedas</option>
+            </select>
+            <div class="price">Rp 8.000</div>
+            <div class="stock">Stok: <span class="sisa">5</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="total">Total: Rp <span id="total">0</span></div>
+    <button class="order-btn order" onclick="sendWA()">Kirim Pesanan WhatsApp</button>
+    <button class="order-btn admin" onclick="resetStock()">Reset Stok (Admin)</button>
+</div>
+
+<script>
+    const soldOutProducts = [
+        "Basreng Pedas",
+        "Basreng Original"
+    ];
+
+    function loadStock() {
+        document.querySelectorAll('.card').forEach(card => {
+            const name = card.dataset.name;
+            const defaultStock = parseInt(card.dataset.stock);
+            const savedStock = localStorage.getItem(name);
+            const stock = savedStock !== null ? parseInt(savedStock) : defaultStock;
+
+            card.dataset.stock = stock;
+            card.querySelector('.sisa').innerText = stock;
+
+            if (soldOutProducts.includes(name) || stock === 0) {
+                card.classList.add('sold');
+            } else {
+                card.classList.remove('sold');
+            }
+        });
+    }
+
+    function saveStock(name, stock) {
+        localStorage.setItem(name, stock);
+    }
+
+    function changeQty(btn, value) {
+        const card = btn.closest('.card');
+        if (card.classList.contains('sold')) return;
+
+        const qtySpan = card.querySelector('.controls span');
+        let qty = parseInt(qtySpan.innerText) + value;
+        const stock = parseInt(card.dataset.stock);
+
+        qty = Math.max(0, Math.min(qty, stock));
+        qtySpan.innerText = qty;
+        updateTotal();
+    }
+
+    function updateTotal() {
+        let total = 0;
+        document.querySelectorAll('.card').forEach(card => {
+            const qty = parseInt(card.querySelector('.controls span').innerText);
+            total += qty * parseInt(card.dataset.price);
+        });
+        document.getElementById('total').innerText = total;
+    }
+
+    function sendWA() {
+        let message = "Pesanan PoyStore:%0A";
+        let total = 0;
+        let ordered = false;
+
+        document.querySelectorAll('.card').forEach(card => {
+            const qty = parseInt(card.querySelector('.controls span').innerText);
+            if (qty > 0) {
+                ordered = true;
+
+                const name = card.dataset.name;
+                const price = parseInt(card.dataset.price);
+                const flavor = card.querySelector('select')?.value || '';
+
+                message += `- ${name}${flavor ? ' (' + flavor + ')' : ''} x${qty}%0A`;
+
+                const newStock = parseInt(card.dataset.stock) - qty;
+                card.dataset.stock = newStock;
+                card.querySelector('.sisa').innerText = newStock;
+                saveStock(name, newStock);
+
+                if (newStock === 0) card.classList.add('sold');
+                card.querySelector('.controls span').innerText = 0;
+
+                total += qty * price;
+            }
+        });
+
+        if (!ordered) {
+            alert("Pesanan masih kosong");
+            return;
+        }
+
+        message += `%0ATotal: Rp ${total}`;
+        window.open(`https://wa.me/62895366635470?text=${message}`, '_blank');
+        updateTotal();
+    }
+
+    function resetStock() {
+        const pin = prompt("Masukkan PIN Admin");
+        if (pin !== "APIPGACOR_") {
+            alert("PIN salah");
+            return;
+        }
+        localStorage.clear();
+        location.reload();
+    }
+
+    loadStock();
+</script>
+
+</body>
+</html>
