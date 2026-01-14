@@ -13,18 +13,22 @@
 
         body {
             margin: 0;
-            background: linear-gradient(to right, #164A41, #4D774D, #9DC88D);
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
+            overflow-x: hidden;
         }
 
+        /* ================= NAVBAR ================= */
         header {
-            background: #42c558;
+            background: linear-gradient(to right, #ff5f9e, #ff85b3);
             color: white;
             padding: 16px;
             text-align: center;
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
         }
 
+        /* ================= LAYOUT ================= */
         .container {
             max-width: 1000px;
             margin: auto;
@@ -37,39 +41,48 @@
             gap: 16px;
         }
 
+        /* ================= CARD ================= */
         .card {
-            background: #fffaf3;
-            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
             padding: 14px;
             text-align: center;
-            box-shadow: 0 4px 8px rgba(0,0,0,.08);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
             position: relative;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, .25);
         }
 
         .card img {
             width: 100%;
             height: 180px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .price {
             font-weight: bold;
             margin: 6px 0;
+            color: #ff5f9e;
         }
 
         .stock {
             font-size: 14px;
-            color: #666;
+            color: #555;
         }
 
         select {
             width: 100%;
             padding: 6px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-bottom: 6px;
         }
 
+        /* ================= CONTROL ================= */
         .controls {
             display: flex;
             justify-content: center;
@@ -79,19 +92,24 @@
         }
 
         .controls button {
-            padding: 6px 12px;
+            padding: 6px 14px;
             border: none;
-            border-radius: 6px;
-            background: #000;
+            border-radius: 8px;
+            background: #ff5f9e;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
             cursor: pointer;
         }
 
+        .controls button:hover {
+            background: #ff2f85;
+        }
+
+        /* ================= TOTAL & BUTTON ================= */
         .total {
             margin-top: 20px;
             color: white;
-            font-size: 20px;
+            font-size: 22px;
             text-align: center;
             font-weight: bold;
         }
@@ -102,12 +120,12 @@
             padding: 14px;
             font-size: 18px;
             border: none;
-            border-radius: 10px;
+            border-radius: 14px;
             cursor: pointer;
         }
 
         .order {
-            background: #000;
+            background: linear-gradient(to right, #ff5f9e, #ff85b3);
             color: white;
         }
 
@@ -116,8 +134,9 @@
             color: white;
         }
 
+        /* ================= SOLD OUT ================= */
         .sold {
-            opacity: 0.55;
+            opacity: 0.5;
             pointer-events: none;
         }
 
@@ -133,6 +152,25 @@
             font-size: 12px;
             font-weight: bold;
         }
+
+        /* ================= KUPU-KUPU ================= */
+        .butterfly {
+            position: fixed;
+            font-size: 32px;
+            animation: fly 18s linear infinite;
+            opacity: 0.8;
+            pointer-events: none;
+        }
+
+        .b1 { top: 20%; left: -60px; animation-delay: 0s; }
+        .b2 { top: 50%; left: -80px; animation-delay: 6s; font-size: 40px; }
+        .b3 { top: 75%; left: -50px; animation-delay: 12s; font-size: 28px; }
+
+        @keyframes fly {
+            0%   { transform: translateX(0) translateY(0) rotate(0deg); }
+            50%  { transform: translateX(60vw) translateY(-40px) rotate(15deg); }
+            100% { transform: translateX(120vw) translateY(20px) rotate(-15deg); }
+        }
     </style>
 </head>
 
@@ -143,7 +181,7 @@
 <div class="container">
     <div class="menu">
 
-        <!-- BASRENG PEDAS -->
+        <!-- PRODUK -->
         <div class="card" data-name="Basreng Pedas" data-price="5000" data-stock="0">
             <img src="basreng_pedas.jpg">
             <h3>Basreng Pedas</h3>
@@ -156,7 +194,6 @@
             </div>
         </div>
 
-        <!-- BASRENG ORIGINAL -->
         <div class="card" data-name="Basreng Original" data-price="5000" data-stock="0">
             <img src="basreng_ori.jpg">
             <h3>Basreng Original</h3>
@@ -169,10 +206,26 @@
             </div>
         </div>
 
-        <!-- KENTANG -->
-        <div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="8">
+        <div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="12">
             <img src="kentang.webp">
             <h3>Kentang Goreng</h3>
+            <div class="price">Rp 3.000</div>
+            <div class="stock">Stok: <span class="sisa">12</span></div>
+            <div class="controls">
+                <button onclick="changeQty(this,-1)">-</button>
+                <span>0</span>
+                <button onclick="changeQty(this,1)">+</button>
+            </div>
+        </div>
+
+        <div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="8">
+            <img src="pangsit.webp">
+            <h3>Keripik Pangsit</h3>
+            <select>
+                <option>Balado</option>
+                <option>Keju</option>
+                <option>BBQ</option>
+            </select>
             <div class="price">Rp 3.000</div>
             <div class="stock">Stok: <span class="sisa">8</span></div>
             <div class="controls">
@@ -182,14 +235,12 @@
             </div>
         </div>
 
-        <!-- KERIPIK PANGSIT -->
-        <div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="0">
-            <img src="pangsit.webp">
-            <h3>Keripik Pangsit</h3>
+        <div class="card" data-name="Kwetiau"data-price="3000" data-stock="0">
+            <img src="kwetiauw.jpg">
+            <h3>Kwetiau</h3>
             <select>
-                <option>Balado</option>
-                <option>Jagung Manis</option>
-                <option>BBQ</option>
+                 <option>Original</option>
+                 <option>Pedas</option>
             </select>
             <div class="price">Rp 3.000</div>
             <div class="stock">Stok: <span class="sisa">0</span></div>
@@ -200,12 +251,11 @@
             </div>
         </div>
 
-        <!-- MAKARONI -->
-        <div class="card" data-name="Makaroni" data-price="3000" data-stock="0">
-            <img src="makaroni.jpg">
-            <h3>Makaroni</h3>
+        <div class="card" data-name="naget"data-price="3000" data-stock="0">
+            <img src="naget_tahu.jpg">
+            <h3>Naget Tahu</h3>
             <select>
-                <option>Balado</option>
+                 <option>Balado</option>
                 <option>Keju</option>
                 <option>BBQ</option>
             </select>
@@ -218,10 +268,14 @@
             </div>
         </div>
 
-        <!-- NUGGET TAHU -->
-        <div class="card" data-name="Nugget Tahu" data-price="3000" data-stock="0">
-            <img src="naget_tahu.jpg">
-            <h3>Nugget Tahu</h3>
+
+        <div class="card" data-name="makaroni"data-price="3000" data-stock="0">
+            <img src="makaroni.jpg">
+            <h3>makaroni</h3>
+            <select>
+                <option>Original</option>
+                <option>Pedas</option>
+            </select>
             <div class="price">Rp 3.000</div>
             <div class="stock">Stok: <span class="sisa">0</span></div>
             <div class="controls">
@@ -231,51 +285,41 @@
             </div>
         </div>
 
-        <!-- KWETIAU -->
-        <div class="card" data-name="Kwetiau" data-price="8000" data-stock="0">
-            <img src="kwetiauw.jpg">
-            <h3>Kwetiau</h3>
-            <select>
-                <option>Original</option>
-                <option>Pedas</option>
-            </select>
-            <div class="price">Rp 8.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
+
+
 
     </div>
 
-    <div class="total">Total: Rp <span id="total">0</span></div>
+    <div class="total">
+        Total: Rp <span id="total">0</span>
+    </div>
+
     <button class="order-btn order" onclick="sendWA()">Kirim Pesanan WhatsApp</button>
     <button class="order-btn admin" onclick="resetStock()">Reset Stok (Admin)</button>
 </div>
 
+<!-- KUPU-KUPU -->
+<div class="butterfly b1">🦋</div>
+<div class="butterfly b2">🦋</div>
+<div class="butterfly b3">🦋</div>
+
 <script>
-    const soldOutProducts = [
-        "Basreng Pedas",
-        "Basreng Original",
-        "Kwetiau"
-    ];
+    const soldOutProducts = ["Basreng Pedas", "Basreng Original"];
 
     function loadStock() {
-        document.querySelectorAll('.card').forEach(card => {
+        document.querySelectorAll(".card").forEach(card => {
             const name = card.dataset.name;
             const defaultStock = parseInt(card.dataset.stock);
             const savedStock = localStorage.getItem(name);
             const stock = savedStock !== null ? parseInt(savedStock) : defaultStock;
 
             card.dataset.stock = stock;
-            card.querySelector('.sisa').innerText = stock;
+            card.querySelector(".sisa").innerText = stock;
 
             if (soldOutProducts.includes(name) || stock === 0) {
-                card.classList.add('sold');
+                card.classList.add("sold");
             } else {
-                card.classList.remove('sold');
+                card.classList.remove("sold");
             }
         });
     }
@@ -285,10 +329,10 @@
     }
 
     function changeQty(btn, value) {
-        const card = btn.closest('.card');
-        if (card.classList.contains('sold')) return;
+        const card = btn.closest(".card");
+        if (card.classList.contains("sold")) return;
 
-        const qtySpan = card.querySelector('.controls span');
+        const qtySpan = card.querySelector(".controls span");
         let qty = parseInt(qtySpan.innerText) + value;
         const stock = parseInt(card.dataset.stock);
 
@@ -299,11 +343,11 @@
 
     function updateTotal() {
         let total = 0;
-        document.querySelectorAll('.card').forEach(card => {
-            const qty = parseInt(card.querySelector('.controls span').innerText);
+        document.querySelectorAll(".card").forEach(card => {
+            const qty = parseInt(card.querySelector(".controls span").innerText);
             total += qty * parseInt(card.dataset.price);
         });
-        document.getElementById('total').innerText = total;
+        document.getElementById("total").innerText = total;
     }
 
     function sendWA() {
@@ -311,24 +355,24 @@
         let total = 0;
         let ordered = false;
 
-        document.querySelectorAll('.card').forEach(card => {
-            const qty = parseInt(card.querySelector('.controls span').innerText);
+        document.querySelectorAll(".card").forEach(card => {
+            const qty = parseInt(card.querySelector(".controls span").innerText);
             if (qty > 0) {
                 ordered = true;
 
                 const name = card.dataset.name;
                 const price = parseInt(card.dataset.price);
-                const flavor = card.querySelector('select')?.value || '';
+                const flavor = card.querySelector("select")?.value || "";
 
-                message += `- ${name}${flavor ? ' (' + flavor + ')' : ''} x${qty}%0A`;
+                message += `- ${name}${flavor ? " (" + flavor + ")" : ""} x${qty}%0A`;
 
                 const newStock = parseInt(card.dataset.stock) - qty;
                 card.dataset.stock = newStock;
-                card.querySelector('.sisa').innerText = newStock;
+                card.querySelector(".sisa").innerText = newStock;
                 saveStock(name, newStock);
 
-                if (newStock === 0) card.classList.add('sold');
-                card.querySelector('.controls span').innerText = 0;
+                if (newStock === 0) card.classList.add("sold");
+                card.querySelector(".controls span").innerText = 0;
 
                 total += qty * price;
             }
@@ -340,7 +384,7 @@
         }
 
         message += `%0ATotal: Rp ${total}`;
-        window.open(`https://wa.me/62895366635470?text=${message}`, '_blank');
+        window.open(`https://wa.me/62895366635470?text=${message}`, "_blank");
         updateTotal();
     }
 
@@ -359,8 +403,3 @@
 
 </body>
 </html>
-
-
-
-
-
