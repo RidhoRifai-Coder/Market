@@ -1,409 +1,353 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PoyStore</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PoyStore – Avengers Edition</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
 
-        body {
-            margin: 0;
-            background: linear-gradient(120deg, #ff9a9e, #fad0c4, #fbc2eb);
-            overflow-x: hidden;
-        }
+/* ===== BACKGROUND AVENGERS ===== */
+body {
+    margin: 0;
+    background: url("avangers.jpeg") no-repeat center center fixed;
+    background-size: cover;
+    overflow-x: hidden;
+}
 
-        /* ================= NAVBAR ================= */
-        header {
-            background: linear-gradient(to right, #ff5f9e, #ff85b3);
-            color: white;
-            padding: 16px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
-        }
+/* overlay gelap */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: -1;
+}
 
-        /* ================= LAYOUT ================= */
-        .container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 16px;
-        }
+/* ===== HEADER ===== */
+header {
+    background: linear-gradient(to right, #7a0000, #b31217);
+    color: gold;
+    padding: 18px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(0,0,0,.7);
+}
 
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 16px;
-        }
+/* ===== LAYOUT ===== */
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 16px;
+}
 
-        /* ================= CARD ================= */
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 16px;
-            padding: 14px;
-            text-align: center;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, .15);
-            position: relative;
-            transition: 0.3s;
-        }
+.menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
 
-        .card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, .25);
-        }
+/* ===== CARD ===== */
+.card {
+    position: relative;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(2px);
+    border-radius: 18px;
+    padding: 14px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 0 18px rgba(255,215,0,.25);
+    transition: .3s;
+}
 
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 12px;
-        }
+.card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 28px rgba(255,215,0,.7);
+}
 
-        .price {
-            font-weight: bold;
-            margin: 6px 0;
-            color: #ff5f9e;
-        }
+/* ===== HERO ICON IMG ===== */
+.hero-img {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid gold;
+    background: rgba(0,0,0,0.5);
+    z-index: 2;
+}
 
-        .stock {
-            font-size: 14px;
-            color: #555;
-        }
+.product {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 2px solid gold;
+}
 
-        select {
-            width: 100%;
-            padding: 6px;
-            border-radius: 8px;
-            margin-bottom: 6px;
-        }
+.price {
+    font-weight: bold;
+    margin: 6px 0;
+    color: gold;
+}
 
-        /* ================= CONTROL ================= */
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-top: 8px;
-        }
+.stock {
+    font-size: 14px;
+    color: #ddd;
+}
 
-        .controls button {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 8px;
-            background: #ff5f9e;
-            color: white;
-            font-size: 18px;
-            cursor: pointer;
-        }
+select {
+    width: 100%;
+    padding: 6px;
+    border-radius: 8px;
+    margin-bottom: 6px;
+    border: none;
+}
 
-        .controls button:hover {
-            background: #ff2f85;
-        }
+/* ===== CONTROL ===== */
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 8px;
+}
 
-        /* ================= TOTAL & BUTTON ================= */
-        .total {
-            margin-top: 20px;
-            color: white;
-            font-size: 22px;
-            text-align: center;
-            font-weight: bold;
-        }
+.controls button {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(to right, #ff512f, #dd2476);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+}
 
-        .order-btn {
-            width: 100%;
-            margin-top: 12px;
-            padding: 14px;
-            font-size: 18px;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-        }
+/* ===== TOTAL & BUTTON ===== */
+.total {
+    margin-top: 20px;
+    color: gold;
+    font-size: 22px;
+    text-align: center;
+    font-weight: bold;
+}
 
-        .order {
-            background: linear-gradient(to right, #ff5f9e, #ff85b3);
-            color: white;
-        }
+.order-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 14px;
+    font-size: 18px;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+}
 
-        .admin {
-            background: #c94c4c;
-            color: white;
-        }
+.order {
+    background: linear-gradient(to right, #ff512f, #f09819);
+    color: white;
+}
 
-        /* ================= SOLD OUT ================= */
-        .sold {
-            opacity: 0.5;
-            pointer-events: none;
-        }
+.admin {
+    background: #6a040f;
+    color: white;
+}
 
-        .sold::after {
-            content: "SOLD OUT";
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: red;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
-        }
+/* ===== SOLD OUT ===== */
+.sold {
+    opacity: .4;
+    pointer-events: none;
+}
 
-        /* ================= KUPU-KUPU ================= */
-        .butterfly {
-            position: fixed;
-            font-size: 32px;
-            animation: fly 18s linear infinite;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        .b1 { top: 20%; left: -60px; animation-delay: 0s; }
-        .b2 { top: 50%; left: -80px; animation-delay: 6s; font-size: 40px; }
-        .b3 { top: 75%; left: -50px; animation-delay: 12s; font-size: 28px; }
-
-        @keyframes fly {
-            0%   { transform: translateX(0) translateY(0) rotate(0deg); }
-            50%  { transform: translateX(60vw) translateY(-40px) rotate(15deg); }
-            100% { transform: translateX(120vw) translateY(20px) rotate(-15deg); }
-        }
-    </style>
+.sold::after {
+    content: "SOLD OUT";
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: crimson;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+</style>
 </head>
 
 <body>
 
-<header>🛒 PoyStore</header>
+<header>POYSTORE – AVENGERS EDITION</header>
 
 <div class="container">
-    <div class="menu">
+<div class="menu">
 
-        <!-- PRODUK -->
-        <div class="card" data-name="Basreng Pedas" data-price="5000" data-stock="10">
-            <img src="basreng_pedas.jpg">
-            <h3>Basreng Pedas</h3>
-            <div class="price">Rp 5.000</div>
-            <div class="stock">Stok: <span class="sisa">10</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-        <div class="card" data-name="Basreng Original" data-price="5000" data-stock="0">
-            <img src="basreng_ori.jpg">
-            <h3>Basreng Original</h3>
-            <div class="price">Rp 5.000</div>
-            <div class="stock">Stok: <span class="sisa">10</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-        <div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="0">
-            <img src="kentang.webp">
-            <h3>Kentang Goreng</h3>
-            <div class="price">Rp 3.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-        <div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="0">
-            <img src="pangsit.webp">
-            <h3>Keripik Pangsit</h3>
-            <select>
-                <option>Balado</option>
-                <option>Keju</option>
-                <option>BBQ</option>
-            </select>
-            <div class="price">Rp 3.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-        <div class="card" data-name="Kwetiau"data-price="3000" data-stock="0">
-            <img src="kwetiauw.jpg">
-            <h3>Kwetiau</h3>
-            <select>
-                 <option>Original</option>
-                 <option>Pedas</option>
-            </select>
-            <div class="price">Rp 3.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-        <div class="card" data-name="naget"data-price="3000" data-stock="0">
-            <img src="naget_tahu.jpg">
-            <h3>Naget Tahu</h3>
-            <select>
-                 <option>Balado</option>
-                <option>Keju</option>
-                <option>BBQ</option>
-            </select>
-            <div class="price">Rp 3.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-
-        <div class="card" data-name="makaroni"data-price="3000" data-stock="0">
-            <img src="makaroni.jpg">
-            <h3>makaroni</h3>
-            <select>
-                <option>Original</option>
-                <option>Pedas</option>
-            </select>
-            <div class="price">Rp 3.000</div>
-            <div class="stock">Stok: <span class="sisa">0</span></div>
-            <div class="controls">
-                <button onclick="changeQty(this,-1)">-</button>
-                <span>0</span>
-                <button onclick="changeQty(this,1)">+</button>
-            </div>
-        </div>
-
-
-
-
+<div class="card" data-name="Basreng Pedas" data-price="5000" data-stock="10">
+    <img src="panther.jpg" class="hero-img">
+    <img src="basreng_pedas.jpg" class="product">
+    <h3>Basreng Pedas</h3>
+    <div class="price">Rp 5.000</div>
+    <div class="stock">Stok: <span class="sisa">10</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
     </div>
-
-    <div class="total">
-        Total: Rp <span id="total">0</span>
-    </div>
-
-    <button class="order-btn order" onclick="sendWA()">Kirim Pesanan WhatsApp</button>
-    <button class="order-btn admin" onclick="resetStock()">Reset Stok (Admin)</button>
 </div>
 
-<!-- KUPU-KUPU -->
-<div class="butterfly b1">🦋</div>
-<div class="butterfly b2">🦋</div>
-<div class="butterfly b3">🦋</div>
+<div class="card" data-name="Basreng Original" data-price="5000" data-stock="0">
+    <img src="captain.jpg" class="hero-img">
+    <img src="basreng_ori.jpg" class="product">
+    <h3>Basreng Original</h3>
+    <div class="price">Rp 5.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+<div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="0">
+    <img src="hulk.jpg" class="hero-img">
+    <img src="kentang.webp" class="product">
+    <h3>Kentang Goreng</h3>
+    <div class="price">Rp 3.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+<div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="0">
+    <img src="spiderman.jpg" class="hero-img">
+    <img src="pangsit.webp" class="product">
+    <h3>Keripik Pangsit</h3>
+    <select>
+        <option>Balado</option>
+        <option>Keju</option>
+        <option>BBQ</option>
+    </select>
+    <div class="price">Rp 3.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+<div class="card" data-name="Kwetiau" data-price="3000" data-stock="0">
+    <img src="thor.jpg" class="hero-img">
+    <img src="kwetiauw.jpg" class="product">
+    <h3>Kwetiau</h3>
+    <select>
+        <option>Original</option>
+        <option>Pedas</option>
+    </select>
+    <div class="price">Rp 3.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+<div class="card" data-name="Naget Tahu" data-price="3000" data-stock="0">
+    <img src="doctor1.jpeg" class="hero-img">
+    <img src="naget_tahu.jpg" class="product">
+    <h3>Naget Tahu</h3>
+    <select>
+        <option>Balado</option>
+        <option>Keju</option>
+        <option>BBQ</option>
+    </select>
+    <div class="price">Rp 3.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+<div class="card" data-name="Makaroni" data-price="3000" data-stock="0">
+    <img src="ironman.jpg" class="hero-img">
+    <img src="makaroni.jpg" class="product">
+    <h3>Makaroni</h3>
+    <select>
+        <option>Original</option>
+        <option>Pedas</option>
+    </select>
+    <div class="price">Rp 3.000</div>
+    <div class="stock">Stok: <span class="sisa">0</span></div>
+    <div class="controls">
+        <button onclick="changeQty(this,-1)">-</button>
+        <span>0</span>
+        <button onclick="changeQty(this,1)">+</button>
+    </div>
+</div>
+
+</div>
+
+<div class="total">Total: Rp <span id="total">0</span></div>
+<button class="order-btn order" onclick="sendWA()">Pesan via WhatsApp</button>
+<button class="order-btn admin" onclick="resetStock()">Reset Stok</button>
+</div>
 
 <script>
-    const soldOutProducts = ["Basreng Original"];
+function changeQty(btn, value) {
+    const card = btn.closest(".card");
+    if (card.classList.contains("sold")) return;
+    const qtySpan = card.querySelector(".controls span");
+    let qty = parseInt(qtySpan.innerText) + value;
+    const stock = parseInt(card.dataset.stock);
+    qty = Math.max(0, Math.min(qty, stock));
+    qtySpan.innerText = qty;
+    updateTotal();
+}
 
-    function loadStock() {
-        document.querySelectorAll(".card").forEach(card => {
-            const name = card.dataset.name;
-            const defaultStock = parseInt(card.dataset.stock);
-            const savedStock = localStorage.getItem(name);
-            const stock = savedStock !== null ? parseInt(savedStock) : defaultStock;
+function updateTotal() {
+    let total = 0;
+    document.querySelectorAll(".card").forEach(card => {
+        const qty = parseInt(card.querySelector(".controls span").innerText);
+        total += qty * parseInt(card.dataset.price);
+    });
+    document.getElementById("total").innerText = total;
+}
 
-            card.dataset.stock = stock;
-            card.querySelector(".sisa").innerText = stock;
+function sendWA() {
+    let msg = "Pesanan PoyStore:%0A";
+    let total = 0;
+    let ordered = false;
 
-            if (soldOutProducts.includes(name) || stock === 0) {
-                card.classList.add("sold");
-            } else {
-                card.classList.remove("sold");
-            }
-        });
-    }
-
-    function saveStock(name, stock) {
-        localStorage.setItem(name, stock);
-    }
-
-    function changeQty(btn, value) {
-        const card = btn.closest(".card");
-        if (card.classList.contains("sold")) return;
-
-        const qtySpan = card.querySelector(".controls span");
-        let qty = parseInt(qtySpan.innerText) + value;
-        const stock = parseInt(card.dataset.stock);
-
-        qty = Math.max(0, Math.min(qty, stock));
-        qtySpan.innerText = qty;
-        updateTotal();
-    }
-
-    function updateTotal() {
-        let total = 0;
-        document.querySelectorAll(".card").forEach(card => {
-            const qty = parseInt(card.querySelector(".controls span").innerText);
+    document.querySelectorAll(".card").forEach(card => {
+        const qty = parseInt(card.querySelector(".controls span").innerText);
+        if (qty > 0) {
+            ordered = true;
+            msg += `- ${card.dataset.name} x${qty}%0A`;
             total += qty * parseInt(card.dataset.price);
-        });
-        document.getElementById("total").innerText = total;
-    }
-
-    function sendWA() {
-        let message = "Pesanan PoyStore:%0A";
-        let total = 0;
-        let ordered = false;
-
-        document.querySelectorAll(".card").forEach(card => {
-            const qty = parseInt(card.querySelector(".controls span").innerText);
-            if (qty > 0) {
-                ordered = true;
-
-                const name = card.dataset.name;
-                const price = parseInt(card.dataset.price);
-                const flavor = card.querySelector("select")?.value || "";
-
-                message += `- ${name}${flavor ? " (" + flavor + ")" : ""} x${qty}%0A`;
-
-                const newStock = parseInt(card.dataset.stock) - qty;
-                card.dataset.stock = newStock;
-                card.querySelector(".sisa").innerText = newStock;
-                saveStock(name, newStock);
-
-                if (newStock === 0) card.classList.add("sold");
-                card.querySelector(".controls span").innerText = 0;
-
-                total += qty * price;
-            }
-        });
-
-        if (!ordered) {
-            alert("Pesanan masih kosong");
-            return;
         }
+    });
 
-        message += `%0ATotal: Rp ${total}`;
-        window.open(`https://wa.me/62895366635470?text=${message}`, "_blank");
-        updateTotal();
-    }
+    if (!ordered) return alert("Pesanan masih kosong");
+    msg += `%0ATotal: Rp ${total}`;
+    window.open(`https://wa.me/62895366635470?text=${msg}`, "_blank");
+}
 
-    function resetStock() {
-        const pin = prompt("Masukkan PIN Admin");
-        if (pin !== "APIPGACOR_") {
-            alert("PIN salah");
-            return;
-        }
-        localStorage.clear();
-        location.reload();
-    }
-
-    loadStock();
+function resetStock() {
+    const pin = prompt("Masukkan PIN Admin");
+    if (pin !== "APIPGACOR_") return alert("PIN salah");
+    location.reload();
+}
 </script>
 
 </body>
 </html>
-
-
-
-
