@@ -303,6 +303,12 @@ select {
 </div>
 
 <script>
+document.querySelectorAll(".card").forEach(card => {
+    const stock = parseInt(card.dataset.stock);
+    if (stock === 0) {
+        card.classList.add("sold");
+    }
+});
 function changeQty(btn, value) {
     const card = btn.closest(".card");
     if (card.classList.contains("sold")) return;
@@ -351,3 +357,4 @@ function resetStock() {
 
 </body>
 </html>
+
