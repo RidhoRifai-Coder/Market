@@ -3,291 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PoyStore – Avengers Edition</title>
+<title>PoyStore – Winter Avengers Edition</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{
+    margin:0;
+    background:linear-gradient(180deg,#020617,#020024,#000);
+    overflow-x:hidden;
+    color:white;
 }
 
-/* ===== BACKGROUND AVENGERS ===== */
-body {
-    margin: 0;
-    background: url("avangers.jpeg") no-repeat center center fixed;
-    background-size: cover;
-    overflow-x: hidden;
+/* SALJU */
+.snow{
+    position:fixed;inset:0;pointer-events:none;
+    background-image:
+     radial-gradient(3px 3px at 20px 30px, white 100%, transparent),
+     radial-gradient(4px 4px at 60px 90px, white 100%, transparent),
+     radial-gradient(2px 2px at 100px 140px, white 100%, transparent),
+     radial-gradient(2px 2px at 150px 40px, white 100%, transparent),
+     radial-gradient(2px 2px at 200px 180px, white 100%, transparent),
+     radial-gradient(2px 2px at 260px 120px, white 100%, transparent),
+     radial-gradient(3px 3px at 320px 200px, white 100%, transparent),
+     radial-gradient(2px 2px at 380px 60px, white 100%, transparent);
+
+    background-size:400px 400px;
+    animation:snowFall 10s linear infinite;
+    opacity:.8;
+}
+@keyframes snowFall{
+    from{background-position:0 -400px}
+    to{background-position:0 400px}
 }
 
-/* overlay gelap */
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    z-index: -1;
+/* HEADER */
+header{
+    background:linear-gradient(to right,#416878,#203a43,#2c5364);
+    padding:18px;
+    text-align:center;
+    font-size:26px;
+    font-weight:bold;
+    box-shadow:0 4px 15px rgba(0,0,0,.8);
+}
+#typing{
+    color:#38bdf8;
+    border-right:2px solid #38bdf8;
+    padding-right:6px;
+    animation:blink .8s infinite;
+}
+@keyframes blink{50%{border-color:transparent}}
+
+.container{max-width:1100px;margin:auto;padding:16px}
+.menu{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
 }
 
-/* ===== HEADER ===== */
-header {
-    background: linear-gradient(to right, #7a0000, #b31217);
-    color: gold;
-    padding: 18px;
-    text-align: center;
-    font-size: 26px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    box-shadow: 0 4px 15px rgba(0,0,0,.7);
+/* CARD NEON */
+.card{
+    position:relative;
+    background:rgba(0,255,255,.08);
+    border-radius:18px;
+    padding:14px;
+    text-align:center;
+    box-shadow:0 0 12px #22d3ee,0 0 26px rgba(34,211,238,.7);
+    transition:.3s;
+}
+.card:hover{
+    transform:translateY(-6px) scale(1.03);
+    box-shadow:0 0 20px #38bdf8,0 0 45px rgba(56,189,248,.9);
+}
+.hero-img{
+    position:absolute;top:10px;right:10px;
+    width:60px;height:60px;border-radius:50%;
+    border:2px solid #22d3ee;object-fit:cover;
+}
+.product{
+    width:100%;height:170px;object-fit:cover;
+    border-radius:14px;border:2px solid #38bdf8;
+}
+.price{color:#22d3ee;font-weight:bold}
+.stock{font-size:14px;color:#ccc}
+select{
+    width:100%;padding:6px;border-radius:8px;border:none;margin:6px 0;
 }
 
-/* ===== LAYOUT ===== */
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 16px;
+.controls{
+    display:flex;justify-content:center;gap:12px;margin-top:8px
+}
+.controls button{
+    padding:6px 14px;border:none;border-radius:8px;
+    background:#0ea5e9;color:white;font-size:18px;cursor:pointer;
 }
 
-.menu {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 18px;
+/* SOLD */
+.sold{opacity:.4;pointer-events:none}
+.sold::after{
+    content:"SOLD OUT";
+    position:absolute;top:12px;left:12px;
+    background:red;padding:6px 10px;
+    border-radius:6px;font-size:12px;font-weight:bold;
 }
 
-/* ===== CARD ===== */
-.card {
-    position: relative;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(2px);
-    border-radius: 18px;
-    padding: 14px;
-    text-align: center;
-    color: white;
-    box-shadow: 0 0 18px rgba(255,215,0,.25);
-    transition: .3s;
+.total{
+    margin-top:20px;text-align:center;
+    font-size:22px;font-weight:bold;color:#38bdf8;
+}
+.order-btn{
+    width:100%;margin-top:12px;padding:14px;
+    font-size:18px;border:none;border-radius:14px;cursor:pointer;
+}
+.order{background:linear-gradient(to right,#0ea5e9,#38bdf8);color:white}
+.admin{background:#020617;color:white}
+
+.snow-icon{
+    position:absolute;
+    top:10px;
+    right:12px;
+    font-size:26px;
+    animation:spinSnow 6s linear infinite;
+    filter:drop-shadow(0 0 6px #38bdf8);
+    opacity:.9;
 }
 
-.card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 0 28px rgba(255,215,0,.7);
+@keyframes spinSnow{
+    from{transform:rotate(0deg)}
+    to{transform:rotate(360deg)}
 }
 
-/* ===== HERO ICON IMG ===== */
-.hero-img {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid gold;
-    background: rgba(0,0,0,0.5);
-    z-index: 2;
-}
-
-.product {
-    width: 100%;
-    height: 170px;
-    object-fit: cover;
-    border-radius: 14px;
-    border: 2px solid gold;
-}
-
-.price {
-    font-weight: bold;
-    margin: 6px 0;
-    color: gold;
-}
-
-.stock {
-    font-size: 14px;
-    color: #ddd;
-}
-
-select {
-    width: 100%;
-    padding: 6px;
-    border-radius: 8px;
-    margin-bottom: 6px;
-    border: none;
-}
-
-/* ===== CONTROL ===== */
-.controls {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 8px;
-}
-
-.controls button {
-    padding: 6px 14px;
-    border: none;
-    border-radius: 8px;
-    background: linear-gradient(to right, #ff512f, #dd2476);
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-}
-
-/* ===== TOTAL & BUTTON ===== */
-.total {
-    margin-top: 20px;
-    color: gold;
-    font-size: 22px;
-    text-align: center;
-    font-weight: bold;
-}
-
-.order-btn {
-    width: 100%;
-    margin-top: 12px;
-    padding: 14px;
-    font-size: 18px;
-    border: none;
-    border-radius: 14px;
-    cursor: pointer;
-}
-
-.order {
-    background: linear-gradient(to right, #ff512f, #f09819);
-    color: white;
-}
-
-.admin {
-    background: #6a040f;
-    color: white;
-}
-
-/* ===== SOLD OUT ===== */
-.sold {
-    opacity: .4;
-    pointer-events: none;
-}
-
-.sold::after {
-    content: "SOLD OUT";
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: crimson;
-    padding: 6px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: bold;
-}
 </style>
 </head>
 
 <body>
+<div class="snow"></div>
 
-<header>POYSTORE – AVENGERS EDITION</header>
+<header><span id="typing"></span></header>
 
 <div class="container">
 <div class="menu">
 
+<!-- 1 -->
 <div class="card" data-name="Basreng Pedas" data-price="5000" data-stock="0">
-    <img src="panther.jpg" class="hero-img">
-    <img src="basreng_pedas.jpg" class="product">
-    <h3>Basreng Pedas</h3>
-    <div class="price">Rp 5.000</div>
-    <div class="stock">Stok: <span class="sisa">10</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="basreng_pedas.jpg" class="product">
+<h3>Basreng Pedas</h3>
+<div class="price">Rp 5.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 2 -->
 <div class="card" data-name="Basreng Original" data-price="5000" data-stock="0">
-    <img src="captain.jpg" class="hero-img">
-    <img src="basreng_ori.jpg" class="product">
-    <h3>Basreng Original</h3>
-    <div class="price">Rp 5.000</div>
-    <div class="stock">Stok: <span class="sisa">0</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="basreng_ori.jpg" class="product">
+<h3>Basreng Original</h3>
+<div class="price">Rp 5.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 3 -->
 <div class="card" data-name="Kentang Goreng" data-price="3000" data-stock="10">
-    <img src="hulk.jpg" class="hero-img">
-    <img src="kentang.webp" class="product">
-    <h3>Kentang Goreng</h3>
-    <div class="price">Rp 3.000</div>
-    <div class="stock">Stok: <span class="sisa">10</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="kentang.webp" class="product">
+<h3>Kentang Goreng</h3>
+<div class="price">Rp 3.000</div>
+<div class="stock">Stok: 10</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 4 -->
 <div class="card" data-name="Keripik Pangsit" data-price="3000" data-stock="0">
-    <img src="spiderman.jpg" class="hero-img">
-    <img src="pangsit.webp" class="product">
-    <h3>Keripik Pangsit</h3>
-    <select>
-        <option>Balado</option>
-        <option>Keju</option>
-        <option>BBQ</option>
-    </select>
-    <div class="price">Rp 3.000</div>
-    <div class="stock">Stok: <span class="sisa">0</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="pangsit.webp" class="product">
+<h3>Keripik Pangsit</h3>
+<select><option>Balado</option><option>Keju</option><option>BBQ</option></select>
+<div class="price">Rp 3.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 5 -->
 <div class="card" data-name="Kwetiau" data-price="3000" data-stock="0">
-    <img src="thor.jpg" class="hero-img">
-    <img src="kwetiauw.jpg" class="product">
-    <h3>Kwetiau</h3>
-    <select>
-        <option>Original</option>
-        <option>Pedas</option>
-    </select>
-    <div class="price">Rp 3.000</div>
-    <div class="stock">Stok: <span class="sisa">0</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="kwetiauw.jpg" class="product">
+<h3>Kwetiau</h3>
+<select><option>Original</option><option>Pedas</option></select>
+<div class="price">Rp 3.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 6 -->
 <div class="card" data-name="Naget Tahu" data-price="3000" data-stock="0">
-    <img src="doctor1.jpeg" class="hero-img">
-    <img src="naget_tahu.jpg" class="product">
-    <h3>Naget Tahu</h3>
-    <div class="price">Rp 3.000</div>
-    <div class="stock">Stok: <span class="sisa">0</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="naget_tahu.jpg" class="product">
+<h3>Naget Tahu</h3>
+<div class="price">Rp 3.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
+<!-- 7 -->
 <div class="card" data-name="Makaroni" data-price="3000" data-stock="0">
-    <img src="ironman.jpg" class="hero-img">
-    <img src="makaroni.jpg" class="product">
-    <h3>Makaroni</h3>
-    <select>
-        <option>Original</option>
-        <option>Pedas</option>
-    </select>
-    <div class="price">Rp 3.000</div>
-    <div class="stock">Stok: <span class="sisa">0</span></div>
-    <div class="controls">
-        <button onclick="changeQty(this,-1)">-</button>
-        <span>0</span>
-        <button onclick="changeQty(this,1)">+</button>
-    </div>
+<div class="snow-icon">❄️</div>
+<img src="makaroni.jpg" class="product">
+<h3>Makaroni</h3>
+<select><option>Original</option><option>Pedas</option></select>
+<div class="price">Rp 3.000</div>
+<div class="stock">Stok: 0</div>
+<div class="controls"><button onclick="changeQty(this,-1)">-</button><span>0</span><button onclick="changeQty(this,1)">+</button></div>
 </div>
 
 </div>
@@ -298,62 +224,57 @@ select {
 </div>
 
 <script>
-document.querySelectorAll(".card").forEach(card => {
-    const stock = parseInt(card.dataset.stock);
-    if (stock === 0) {
-        card.classList.add("sold");
-    }
+document.querySelectorAll(".card").forEach(c=>{
+    if(parseInt(c.dataset.stock)===0)c.classList.add("sold");
 });
-function changeQty(btn, value) {
-    const card = btn.closest(".card");
-    if (card.classList.contains("sold")) return;
-    const qtySpan = card.querySelector(".controls span");
-    let qty = parseInt(qtySpan.innerText) + value;
-    const stock = parseInt(card.dataset.stock);
-    qty = Math.max(0, Math.min(qty, stock));
-    qtySpan.innerText = qty;
+
+function changeQty(btn,val){
+    const c=btn.closest(".card");
+    if(c.classList.contains("sold"))return;
+    const s=c.querySelector(".controls span");
+    s.innerText=Math.max(0,parseInt(s.innerText)+val);
     updateTotal();
 }
-
-function updateTotal() {
-    let total = 0;
-    document.querySelectorAll(".card").forEach(card => {
-        const qty = parseInt(card.querySelector(".controls span").innerText);
-        total += qty * parseInt(card.dataset.price);
+function updateTotal(){
+    let t=0;
+    document.querySelectorAll(".card").forEach(c=>{
+        t+=parseInt(c.querySelector(".controls span").innerText)*parseInt(c.dataset.price);
     });
-    document.getElementById("total").innerText = total;
+    document.getElementById("total").innerText=t;
 }
-
-function sendWA() {
-    let msg = "Pesanan PoyStore:%0A";
-    let total = 0;
-    let ordered = false;
-
-    document.querySelectorAll(".card").forEach(card => {
-        const qty = parseInt(card.querySelector(".controls span").innerText);
-        if (qty > 0) {
-            ordered = true;
-            msg += `- ${card.dataset.name} x${qty}%0A`;
-            total += qty * parseInt(card.dataset.price);
-        }
-    });
-
-    if (!ordered) return alert("Pesanan masih kosong");
-    msg += `%0ATotal: Rp ${total}`;
-    window.open(`https://wa.me/62895366635470?text=${msg}`, "_blank");
-}
-
-function resetStock() {
-    const pin = prompt("Masukkan PIN Admin");
-    if (pin !== "APIPGACOR_") return alert("PIN salah");
+function sendWA(){alert("Contoh pesan WA 😄")}
+function resetStock(){
+    if(prompt("PIN Admin")!=="APIPGACOR_")return alert("PIN salah");
     location.reload();
 }
+
+
+const text = "❄ Selamat Datang di PoyShop ❄";
+const typingEl = document.getElementById("typing");
+let index = 0;
+let isDeleting = false;
+
+function typeLoop(){
+    if(!isDeleting){
+        // MENGETIK
+        typingEl.innerHTML = text.substring(0, index + 1);
+        index++;
+        if(index === text.length){
+            setTimeout(() => isDeleting = true, 2000); // diam 2 detik
+        }
+    } else {
+        // MENGHAPUS
+        typingEl.innerHTML = text.substring(0, index - 1);
+        index--;
+        if(index === 0){
+            isDeleting = false;
+        }
+    }
+}
+
+setInterval(typeLoop, 120);   // kecepatan ketik
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
